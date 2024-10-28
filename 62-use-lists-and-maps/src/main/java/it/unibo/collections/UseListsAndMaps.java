@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -64,25 +65,45 @@ public final class UseListsAndMaps {
          * using the previous lists. In order to measure times, use as example
          * TestPerformance.java.
          */
-        
-        long time = System.nanoTime();
+
+         /*ArrayList*/        
+         long time = System.nanoTime();
         for(int i = 0; i < ELEMS; i++){
             al.addFirst(i);
-            ll.addFirst(i);
         }
 
         time = System.nanoTime() - time;
-        final var millis = TimeUnit.NANOSECONDS.toMillis(time);
+        var millis = TimeUnit.NANOSECONDS.toMillis(time);
         
-        System.out.println(// NOPMD
+        System.out.println(
             "Adding "
                 + ELEMS
-                + " ints to both ArrayList and LinkedList: "
+                + " ints to ArrayList: "
                 + time
                 + "ns ("
                 + millis
                 + "ms)"
         );
+
+        /*LinkedList*/
+        time = System.nanoTime();
+        for(int i = 0; i < ELEMS; i++){
+            ll.addFirst(i);
+        }
+
+        time = System.nanoTime() - time;
+        millis = TimeUnit.NANOSECONDS.toMillis(time);
+        
+        System.out.println(// NOPMD
+            "Adding "
+                + ELEMS
+                + " ints to LinkedList: "
+                + time
+                + "ns ("
+                + millis
+                + "ms)"
+        );
+
         /*
          * 6) Measure the performance of reading 1000 times an element whose
          * position is in the middle of the collection for both ArrayList and
@@ -90,7 +111,47 @@ public final class UseListsAndMaps {
          * times, use as example TestPerformance.java.
          */
 
+         /*ArrayList*/        
+        final int times = 1000;
+        int pos = (int) al.size()/2;        
 
+        time = System.nanoTime();
+         for(int i = 0; i < times; i++){
+            al.get(pos);
+         }
+        
+        time = System.nanoTime() - time;
+        millis = TimeUnit.NANOSECONDS.toMillis(time);
+        
+         System.out.println(// NOPMD
+             "Reading element "
+                 + ELEMS
+                 + " times to ArrayList: "
+                 + time
+                 + "ns ("
+                 + millis
+                 + "ms)"
+         );
+
+       /*LinkedList*/
+       time = System.nanoTime();
+       for(int i = 0; i < times; i++){
+          ll.get(pos);
+       }
+      
+      time = System.nanoTime() - time;
+      millis = TimeUnit.NANOSECONDS.toMillis(time);
+      
+       System.out.println(// NOPMD
+           "Reading element "
+               + ELEMS
+               + " times to LinkedList: "
+               + time
+               + "ns ("
+               + millis
+               + "ms)"
+       );
+        
         /*
          * 7) Build a new Map that associates to each continent's name its
          * population:
@@ -108,9 +169,21 @@ public final class UseListsAndMaps {
          * Oceania -> 38,304,000
          */
 
+        Map<String, Long> hm = new HashMap<String, Long>();
+        hm.put("Africa", 1110635000L);
+        hm.put("Americas",972005000L);
+        hm.put("Antartica",0L);
+        hm.put("Asia",4298723000L);
+        hm.put("Europe",742452000L);
+        hm.put("Oceania",38304000L);
 
         /*
          * 8) Compute the population of the world
          */
+       long poptot = 0;
+       for (String cont : hm.keySet()) {
+            poptot += hm.get(cont);
+       }
+        System.out.println("World population: "+poptot);
     }
 }
