@@ -56,7 +56,6 @@ public final class UseArithmeticService {
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 sent = false;
-                System.out.println("/!\\ Message failed to be sent /!\\");
                 //e.printStackTrace();
             }
         }
@@ -77,7 +76,6 @@ public final class UseArithmeticService {
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 received = false;
-                System.out.println("/!\\ Message failed to be recieved /!\\");
                 //e.printStackTrace();
             }
         }
